@@ -86,6 +86,29 @@ def api_register():
 
     return jsonify({'result': 'success'})
 
+#1. 로그인: 로그인 화면에서 '로그인' 버튼 클릭 시
+@app.route('/api/login', methods=['POST'])
+def api_login():
+    id_receive = request.form['id_give']
+    pw_receive = request.form['pw_give']
+
+    pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
+
+    result = db.user_bmi.find_one({'id': id_receive, 'pw': pw_hash})
+
+    if result is not None:
+        payload = {
+            'id': id_receive,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=10) # 잘되는지 확인 후 hour 단위로 변경
+        }
+
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+
+        return jsonify({'result': 'success', 'token': token})
+        # return render_template('index.html')
+
+    else:
+        return jsonify({'result':'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
