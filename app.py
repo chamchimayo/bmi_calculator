@@ -26,6 +26,39 @@ import hashlib
 def home():
     return render_template('login.html')
 
+@app.route('/bmi_register')
+def bmi_register_form():
+    return render_template('bmiRegister.html')
+
+
+@app.route("/bmi_register", methods=["POST"])
+def bmi_register():
+
+    bmi_list = list(db.user_bmi.find({}, {'_id': False}))
+    count = len(bmi_list) + 1
+
+    user_num_receive = 1
+
+    user_height_receive = request.form['user_height_give']
+    user_weight_receive = request.form['user_weight_give']
+    height_num = int(user_height_receive) / 100
+    user_bmi = int(user_weight_receive) / (height_num * height_num)
+
+    now = datetime.datetime.today()
+
+    doc = {
+        'user_bmi_num': count,
+        'user_num': user_num_receive,
+        'user_height': user_height_receive,
+        'user_weight': user_weight_receive,
+        'user_bmi': round(user_bmi, 2),
+        'register_date': now
+    }
+
+    db.user_bmi.insert_one(doc)
+    return jsonify({'msg': '등록 완료!'})
+
+
 
 @app.route('/index')
 def main():
