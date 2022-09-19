@@ -46,10 +46,12 @@ def api_register():
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']
     mail_receive = request.form['name_give']
+    userlist = list(db.user.find({}, {'_id': False}))
+    count = len(userlist) + 1
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    db.user_bmi.insert_one({'name': name_receive, 'id': id_receive, 'pw': pw_hash, 'mail': mail_receive})
+    db.user.insert_one({'name': name_receive, 'id': id_receive, 'pw': pw_hash, 'mail': mail_receive, 'num': count})
 
     return jsonify({'result': 'success'})
 
