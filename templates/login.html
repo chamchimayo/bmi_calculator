@@ -1,47 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+
+    <!-- Webpage Title -->
+    <title>Bmi Log In</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- Font Awesome CSS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <style>
-        wrap {
-            width: 100%;
-            height: 100%;
-            background: #000;
-            position: relative;
-        }
-        .login_title {
 
-            margin:50px auto auto auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .login_title > title {
-            font-size: 50pt;
+        .hero {
+            display: block;
         }
 
+        .hero.is-halfheight {
+            min-height: 48vh;
+        }
+        .hero.is-success {
+            background-color: #00d1b2;
+        }
+        .hero-body {
+            padding-left: 3rem;
+        }
+        .title {
+            font-size: 3rem;
+        }
+        .subtitle {
+            font-size: 1.7rem;
+        }
         .box {
-            width: 450px;
+            width: 480px;
             height: 300px;
             position: absolute;
             left: 50%;
             top: 50%;
-            margin-left: -225px;
-            margin-top: -225px;
+            margin-left: -240px;
+            margin-top: -240px;
             padding: 2rem;
-
             border-radius: 1rem;
-
             border: cadetblue solid 3px;
         }
-
 
         .input {
             border: #00cfb2 solid 1px;
@@ -55,88 +63,108 @@
         }
 
         .bts > button {
-            margin-left: 10px
+            margin-top: 20px;
+            margin-left: 20px;
         }
     </style>
-
     <script>
-        {% if msg %}
-            alert("{{ msg }}")
-        {% endif %}
+        // {% if msg %}
+            //     alert("{{ msg }}")
+            // {% endif %}
 
-        function moveregister() {
-            location.href = "register"
+        function move_register() {
+            window.location.href = '/register'
         }
 
-        function login() {
+        function log_in() {
+            let username = $("#input-username").val()
+            let password = $("#input-password").val()
+
+            if (username == "") {
+                $("#help-id-login").text("아이디를 입력해주세요!").addClass("is-danger")
+                $("#input-username").focus()
+                return;
+            } else {
+                $("#help-id-login").text("")
+            }
+
+            if (password == "") {
+                $("#help-password-login").text("비밀번호를 입력해주세요!").addClass("is-danger")
+                $("#input-password").focus()
+                return;
+            } else {
+                $("#help-password-login").text("")
+            }
             $.ajax({
                 type: "POST",
                 url: "/api/login",
-                data: {id_give: $('#userid').val(), pw_give: $('#userpw').val()},
+                data: {
+                    username_give: username,
+                    password_give: password
+                },
                 success: function (response) {
                     if (response['result'] == 'success') {
-                        // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
-                        // 이 토큰을 mytoken이라는 키 값으로 쿠키에 저장합니다.
-                        $.cookie('mytoken', response['token']);
-
-                        alert('로그인 완료!')
-                        window.location.href = '/bmi_register'
+                        $.cookie('mytoken', response['token'], {path: '/'});
+                        alert(response['name'] + "님 로그인을 환영합니다.")
+                        window.location.replace("/bmi_register")
                     } else {
-                        // 로그인이 안되면 에러메시지를 띄웁니다.
                         alert(response['msg'])
+                        window.location.reload()
                     }
                 }
-            })
+            });
         }
-
 
     </script>
 
-
 </head>
 <body>
-<div class="warp">
+<section class="hero is-success is-halfheight">
+    <div class="hero-body">
+        <div class="login_title">
+            <p class="title">나만의 BMI 테스트</p>
+            <p class="subtitle">건강한 체중 찾기</p>
+        </div>
+    </div>
+</section>
 
-        <section class="hero is-success is-halfheight">
-            <div class="hero-body">
-                <div class="login_title">
-                    <p class="title">
-                        나만의 BMI 테스트
-                    </p>
-                    <p class="subtitle">
-                        건강한 체중 찾기
-                    </p>
+
+<div class="box">
+    <article class="media">
+        <div class="media-content">
+            <div class="content">
+                <div class="field">
+                    <label class="label">ID</label>
+                    <div class="control has-icons-left" style="width:100%">
+                        <input id="input-username" class="input" type="text" placeholder="아이디">
+                        <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+                    </div>
                 </div>
-            </div>
-        </section>
 
+                <p id="help-id-login" class="help is-safe"></p>
 
-    <form class="box">
-        <div class="field">
-            <label class="label">아이디</label>
-            <div class="control">
-                <input id='userid' class="input" type="email" placeholder="ID">
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control has-icons-left">
+                        <input id="input-password" class="input" type="password" placeholder="비밀번호">
+                        <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
+                    </div>
+                </div>
+
+                <p id="help-password-login" class="help is-safe"></p>
+
+                <div class="bts">
+                    <button onclick="log_in()" class="button is-primary"><span
+                            style="font-weight: bold; font-size: 15pt;"> 로그인 </span></button>
+                    <button onclick="move_register()" class="button is-primary is-light"><span
+                            style="font-weight: bold; font-size: 15pt;"> 회원가입 </span></button>
+                </div>
+
             </div>
         </div>
-
-        <div class="field">
-            <label class="label">비밀번호</label>
-            <div class="control">
-                <input id='userpw' class="input" type="password" placeholder="PW">
-            </div>
-        </div>
-        <div class="bts">
-            <button onclick="login()" ; class="button is-primary"><span
-                    style="font-weight: bold; font-size: 15pt;"> 로그인 </span></button>
-            <button onclick="moveregister(); return false; " class="button is-primary is-light"><span
-                    style="font-weight: bold; font-size: 15pt;"> 회원가입 </span></button>
-        </div>
-    </form>
+    </article>
 </div>
 
 
 </body>
-
-
 </html>
-
