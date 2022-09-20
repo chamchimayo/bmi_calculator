@@ -58,7 +58,39 @@ def bmi_register():
     db.user_bmi.insert_one(doc)
     return jsonify({'msg': '등록 완료!'})
 
+@app.route('/bmi_check')
+def user_bmi():
+    user_num = int(request.args.get("user_num"))
+    user = db.user.find_one({'num':user_num})
+    bmi_list = list(db.user_bmi.find({'user_num':user_num}, {'_id': False}).sort([("user_bmi_num", -1)]))
+    bmi_data = bmi_list[0]['user_bmi']
 
+    return render_template('userBmi.html', user_num=user_num, user=user, bmi_list=bmi_list, bmi_data=bmi_data)
+
+@app.route("/api/bmi_check", methods=["GET"])
+def bmi_get():
+    args = request.args
+    user_bmi_num = int(args.get('user_bmi_num'))
+
+    bmi = db.user_bmi.find_one({'user_bmi_num': user_bmi_num})
+    user_hegit = bmi["user_height"]
+    user_weight = bmi["user_weight"]
+    user_bmi_value = bmi["user_bmi"]
+
+    user_bmi_info = [user_hegit, user_weight, user_bmi_value]
+
+    return user_bmi_info
+
+
+def format_datetime(value, format=None):
+  if format is None:
+    weekdays = ['월', '화', '수', '목', '금', '토', '일']
+    wd = weekdays[value.weekday()]
+    format = "%Y년 %m월 %d일 ({})".format(wd)
+    formatted = value.strftime(format.encode('unicode-escape').decode()).encode().decode('unicode-escape')
+  else:
+    formatted = value.strftime(format.encode('unicode-escape').decode()).encode().decode('unicode-escape')
+  return formatted
 
 @app.route('/index')
 def main():

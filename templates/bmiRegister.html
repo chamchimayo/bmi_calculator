@@ -10,7 +10,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        function user_bmi_egsiter() {
+        function user_bmi_regsiter() {
             let user_height = $('#user-height').val();
             let user_weight = $('#user-weight').val();
 
@@ -23,7 +23,7 @@
                 },
                 success: function (response) {
                     alert(response["msg"])
-                    window.location.reload()
+                    window.location.href = '/bmi_check?user_num=1';
                 }
             })
         }
@@ -45,7 +45,7 @@
     <input class="input is-primary" type="text" name="" id="user-height" placeholder="키를 입력 하세요.">
     <label for="user-weight">몸무게</label>
     <input class="input is-primary" type="text" name="" id="user-weight" placeholder="몸무게를 입력 하세요.">
-    <button class="button is-primary" onclick="user_bmi_egsiter()">bmi 확인하고 운동 추천 받기</button>
+    <button class="button is-primary" onclick="user_bmi_regsiter()">bmi 확인하고 운동 추천 받기</button>
 </div>
 
 </body>
