@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BMI 확인</title>
+
+    <!-- Bulma CSS 링크 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/mystyle.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        const user_num = {{ user_num }}
+        const user = '{{ user }}'
+        const bmi_list = '{{ bmi_list }}'
+
+        $(document).ready(function () {
+            $('#user-bmi-data').click(function () {
+                $('#slide-toggle-li').slideToggle();
+            })
+        })
+
+        function show_bmi(num) {
+            $.ajax({
+                type: "GET",
+                url: `/api/bmi_check?user_bmi_num=${num}`,
+                success: function (response) {
+                    const user_height = response[0]
+                    const user_weight = response[1]
+                    const user_bmi_val = response[2]
+
+                    var body_condition = '';
+                    if(user_bmi_val <= 18.5) {
+                        body_condition = '저체중'
+                    } else if(user_bmi_val > 18.5 && user_bmi_val < 25 ) {
+                        body_condition = '표준' // 표준? 정상?
+                    } else {
+                        body_condition = '비만'
+                    }
+
+                    bmi_info = `<p>내 키 : ${user_height}</p>
+                                <p>내 몸무게 : ${user_weight}</p>
+                                <p>내 BMI 지수 : ${user_bmi_val}</p>
+                                <p>비만도 결과 : ${body_condition}</p>
+                                <p>추천 운동 : </p>`
+
+                    $('#user-bmi').empty()
+                    $('#user-bmi').append(bmi_info)
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <p class="title">
+                BMI Calculator
+            </p>
+            <p class="subtitle">
+                bmi 확인하기
+            </p>
+        </div>
+    </section>
+
+    <div class="grid">
+        <aside class="menu">
+
+            <!--        <p class="menu-label">-->
+            <!--        </p>-->
+            <ul class="menu-list">
+                <li>
+                    <a class="is-active" id="user-bmi-data">{{ user.name }}님, BMI 저장 기록</a>
+                    <ul id="slide-toggle-li">
+                        {% for bmi in bmi_list %}
+                            <li>
+                                <a onclick="show_bmi({{ bmi.user_bmi_num }})">{{ bmi.register_date.strftime('%Y-%m-%d') }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+            </ul>
+            <p class="menu-label">
+            </p>
+            <ul class="menu-list">
+                <li><a>내 BMI 변화 그래프로 보기</a></li>
+            </ul>
+        </aside>
+        <article id="user-bmi">
+            <p>내 키 : {{ bmi_list[0].user_height }}</p>
+            <p>내 몸무게 : {{ bmi_list[0].user_weight }}</p>
+            <p>내 BMI 지수 : {{ bmi_data }}</p>
+            {% if bmi_data <= 18.5 %}
+                <p>비만도 결과 : 저체중</p>
+            {% elif bmi_data > 18.5 and bmi_data <25 %}
+                <p>비만도 결과 : 표준</p>
+            {% else %}
+                <p>비만도 결과 : 비만</p>
+            {% endif %}
+            <p>추천 운동 : </p>
+        </article>
+    </div>
+</body>
+</html>
