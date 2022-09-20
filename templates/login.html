@@ -3,7 +3,7 @@
 <head>
 
     <!-- Webpage Title -->
-    <title>Log In | SWEETER</title>
+    <title>Bmi Log In</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,67 +12,76 @@
     <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <!-- Font Awesome CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <style>
-        .button.is-sparta {
-            background-color: #e8344e;
-            border-color: transparent;
-            color: #fff !important;
+
+        .hero {
+            display: block;
         }
 
-        .button.is-sparta.is-outlined {
-            background-color: transparent;
-            border-color: #e8344e;
-            color: #e8344e !important;
+        .hero.is-halfheight {
+            min-height: 48vh;
         }
-
-        .help {
-            color: gray;
+        .hero.is-success {
+            background-color: #00d1b2;
         }
-
-        body {
-            background-color: RGBA(232, 52, 78, 0.2);
-            min-height: 100vh;
+        .hero-body {
+            padding-left: 3rem;
         }
-
-        .section {
-            padding: 1rem 1.5rem;
-            max-width: 750px;
-            margin: auto;
-        }
-
         .title {
-            font-weight: 800;
-            font-size: 5rem;
+            font-size: 3rem;
         }
-
         .subtitle {
-            font-size: 2rem;
+            font-size: 1.7rem;
+        }
+        .box {
+            width: 480px;
+            height: 300px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -240px;
+            margin-top: -240px;
+            padding: 2rem;
+            border-radius: 1rem;
+            border: cadetblue solid 3px;
         }
 
-        .is-sparta {
-            color: #e8344e !important;
+        .input {
+            border: #00cfb2 solid 1px;
+        }
+
+        .bts {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bts > button {
+            margin-top: 20px;
+            margin-left: 20px;
         }
     </style>
     <script>
         // {% if msg %}
-        //     alert("{{ msg }}")
-        // {% endif %}
+            //     alert("{{ msg }}")
+            // {% endif %}
 
-        function move_register(){
-            window.location.href='/register'
+        function move_register() {
+            window.location.href = '/register'
         }
 
-        function sign_in() {
+        function log_in() {
             let username = $("#input-username").val()
             let password = $("#input-password").val()
 
             if (username == "") {
-                $("#help-id-login").text("아이디를 입력해주세요.")
+                $("#help-id-login").text("아이디를 입력해주세요!").addClass("is-danger")
                 $("#input-username").focus()
                 return;
             } else {
@@ -80,7 +89,7 @@
             }
 
             if (password == "") {
-                $("#help-password-login").text("비밀번호를 입력해주세요.")
+                $("#help-password-login").text("비밀번호를 입력해주세요!").addClass("is-danger")
                 $("#input-password").focus()
                 return;
             } else {
@@ -96,10 +105,11 @@
                 success: function (response) {
                     if (response['result'] == 'success') {
                         $.cookie('mytoken', response['token'], {path: '/'});
-                        alert(response['name']+"님 로그인을 환영합니다.")
+                        alert(response['name'] + "님 로그인을 환영합니다.")
                         window.location.replace("/bmi_register")
                     } else {
                         alert(response['msg'])
+                        window.location.reload()
                     }
                 }
             });
@@ -109,50 +119,52 @@
 
 </head>
 <body>
-<section class="hero is-white">
-    <div class="hero-body has-text-centered" style="padding-bottom:1rem;margin:auto;">
-        <h1 class="title is-sparta">SWEETER</h1>
-        <h3 class="subtitle is-sparta">세상을 달달하게</h3>
-    </div>
-</section>
-<section class="section">
-    <div class="container">
-        <div class="box" style="max-width: 480px;margin:auto">
-            <article class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <div class="field has-addons">
-                            <div class="control has-icons-left" style="width:100%">
-                                <input id="input-username" class="input" type="text" placeholder="아이디">
-                                <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
-                            </div>
-                        </div>
-
-                        <p id="help-id-login" class="help is-safe"></p>
-
-                        <div class="field">
-                            <div class="control has-icons-left">
-                                <input id="input-password" class="input" type="password" placeholder="비밀번호">
-                                <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
-                            </div>
-                        </div>
-
-                        <p id="help-password-login" class="help is-safe"></p>
-                    </div>
-                    <div id="div-sign-in-or-up" class="has-text-centered">
-                        <nav class="level is-mobile">
-                            <button class="level-item button is-sparta" onclick="sign_in()">로그인</button>
-                        </nav>
-                        <hr>
-                        <h4 class="mb-3">아직 회원이 아니라면</h4>
-                        <nav class="level is-mobile">
-                            <button class="level-item button is-sparta is-outlined" onclick="move_register()">회원가입하기</button>
-                        </nav>
-                    </div>
-                </div>
-            </article>
+<section class="hero is-success is-halfheight">
+    <div class="hero-body">
+        <div class="login_title">
+            <p class="title">나만의 BMI 테스트</p>
+            <p class="subtitle">건강한 체중 찾기</p>
         </div>
     </div>
 </section>
+
+
+<div class="box">
+    <article class="media">
+        <div class="media-content">
+            <div class="content">
+                <div class="field">
+                    <label class="label">ID</label>
+                    <div class="control has-icons-left" style="width:100%">
+                        <input id="input-username" class="input" type="text" placeholder="아이디">
+                        <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
+                    </div>
+                </div>
+
+                <p id="help-id-login" class="help is-safe"></p>
+
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control has-icons-left">
+                        <input id="input-password" class="input" type="password" placeholder="비밀번호">
+                        <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
+                    </div>
+                </div>
+
+                <p id="help-password-login" class="help is-safe"></p>
+
+                <div class="bts">
+                    <button onclick="log_in()" class="button is-primary"><span
+                            style="font-weight: bold; font-size: 15pt;"> 로그인 </span></button>
+                    <button onclick="move_register()" class="button is-primary is-light"><span
+                            style="font-weight: bold; font-size: 15pt;"> 회원가입 </span></button>
+                </div>
+
+            </div>
+        </div>
+    </article>
+</div>
+
+
 </body>
 </html>
