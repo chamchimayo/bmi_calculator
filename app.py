@@ -96,7 +96,7 @@ def api_login():
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    result = db.user_bmi.find_one({'id': id_receive, 'pw': pw_hash})
+    result = db.user.find_one({'id': id_receive, 'pw': pw_hash})
 
     if result is not None:
         payload = {
