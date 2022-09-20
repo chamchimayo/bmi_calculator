@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,22 +9,66 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <style>
-      .box {
-          max-width: 450px;
-          max: 95%;
-          margin: auto;
-      }
+        wrap {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            position: relative;
+        }
+        .login_title {
+
+            margin:50px auto auto auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .login_title > title {
+            font-size: 50pt;
+        }
+
+        .box {
+            width: 450px;
+            height: 300px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -225px;
+            margin-top: -225px;
+            padding: 2rem;
+
+            border-radius: 1rem;
+
+            border: cadetblue solid 3px;
+        }
+
+
+        .input {
+            border: #00cfb2 solid 1px;
+        }
+
+        .bts {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bts > button {
+            margin-left: 10px
+        }
     </style>
 
     <script>
         {% if msg %}
-                alert("{{ msg }}")
+            alert("{{ msg }}")
         {% endif %}
 
-        function moveregister(){
+        function moveregister() {
             location.href = "register"
         }
-         function login() {
+
+        function login() {
             $.ajax({
                 type: "POST",
                 url: "/api/login",
@@ -51,25 +95,45 @@
 
 </head>
 <body>
+<div class="warp">
 
-<form class="box">
-    <div class="field">
-        <label class="label">아이디</label>
-        <div class="control">
-            <input id='userid' class="input" type="email" placeholder="ID">
+        <section class="hero is-success is-halfheight">
+            <div class="hero-body">
+                <div class="login_title">
+                    <p class="title">
+                        나만의 BMI 테스트
+                    </p>
+                    <p class="subtitle">
+                        건강한 체중 찾기
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+    <form class="box">
+        <div class="field">
+            <label class="label">아이디</label>
+            <div class="control">
+                <input id='userid' class="input" type="email" placeholder="ID">
+            </div>
         </div>
-    </div>
 
-    <div class="field">
-        <label class="label">비밀번호</label>
-        <div class="control">
-            <input id='userpw' class="input" type="password" placeholder="PASSWORD">
+        <div class="field">
+            <label class="label">비밀번호</label>
+            <div class="control">
+                <input id='userpw' class="input" type="password" placeholder="PW">
+            </div>
         </div>
-    </div>
+        <div class="bts">
+            <button onclick="login()" ; class="button is-primary"><span
+                    style="font-weight: bold; font-size: 15pt;"> 로그인 </span></button>
+            <button onclick="moveregister(); return false; " class="button is-primary is-light"><span
+                    style="font-weight: bold; font-size: 15pt;"> 회원가입 </span></button>
+        </div>
+    </form>
+</div>
 
-    <button onclick="login()"; class="button is-primary">로그인</button>
-    <button onclick="moveregister(); return false; " class="button is-primary is-light" >회원가입</button>
-</form>
 
 </body>
 
