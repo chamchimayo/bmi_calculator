@@ -10,34 +10,101 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script>
         function register() {
-             $.ajax({
-                    type: "POST",
-                    url: "/api/register",
-                    data: {
-                        name_give: $('#username').val(),
-                        id_give: $('#userid').val(),
-                        pw_give: $('#userpw').val(),
-                        mail_give: $('#usermail').val()
-                    },
-                    success: function (response) {
-                        if (response['result'] == 'success') {
-                            alert('회원가입이 완료되었습니다.')
-                            window.location.href = '/'
-                        } else {
-                            alert(response['msg'])
-                        }
+            $.ajax({
+                type: "POST",
+                url: "/api/register",
+                data: {
+                    name_give: $('#username').val(),
+                    id_give: $('#userid').val(),
+                    pw_give: $('#userpw').val(),
+                    mail_give: $('#usermail').val()
+                },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert('회원가입이 완료되었습니다.')
+                        window.location.href = '/'
+                    } else {
+                        alert(response['msg'])
                     }
-                })
-              }
+                }
+            })
+        }
     </script>
+    <style>
+        .field {
+            width: 300px;
+        }
+
+        .wrap {
+            border: cadetblue solid 3px;
+            border-radius: 5px;
+            width: 500px;
+            margin: 50pt auto auto auto;
+            padding: 20pt 20pt 20pt 20pt;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .title{
+            font-size: 50pt;
+            margin:auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .input{
+            border: #00cfb2 solid 1px;
+        }
+
+
+    </style>
 
 </head>
 <body>
-<h1> 회원가입 페이지 </h1>
-<input id="username" type="text" value="이름을 입력하세요"><br>
-<input id="userid" type="text" value="ID를 입력하세요"><br>
-<input id="userpw" type="text" value="pw를 입력하세요"><br>
-<input id="usermail" type="text" value="email을 입력하세요"><br>
-<button onclick="register()"> 회원가입</button>
+
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">
+      회원가입 :)
+    </p>
+  </div>
+</section>
+
+<div class="wrap">
+    <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+            <input id="username" class="input" type="text" placeholder="Name">
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">ID</label>
+        <div class="control">
+            <input id="userid" class="input" type="text" placeholder="ID">
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+            <input id="userpw" class="input" type="text" placeholder="PW">
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+            <input id="usermail" class="input" type="text" placeholder="hanghae99@gamil.net">
+        </div>
+    </div>
+    <div class = "join-btn">
+        <button onclick="register()" class="button is-primary"> <span style="font-weight: bold; font-size: 15pt;"> 가입하기 </span> </button>
+    </div>
+</div>
+
+
 </body>
 </html>
