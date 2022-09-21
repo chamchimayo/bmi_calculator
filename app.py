@@ -21,35 +21,52 @@ def home():
 
 @app.route('/bmi_register')
 def bmi_register_form():
-    return render_template('bmiRegister.html')
+    token_receive = request.cookies.get('mytoken')
 
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.user.find_one({"id": payload["id"]})
+        user_num_receive = int(user_info["num"])
+        print("user_num_receive", user_num_receive)
+
+        return render_template('bmiRegister.html', user_num=user_num_receive)
+
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
 
 @app.route("/bmi_register", methods=["POST"])
 def bmi_register():
+    token_receive = request.cookies.get('mytoken')
 
-    bmi_list = list(db.user_bmi.find({}, {'_id': False}))
-    count = len(bmi_list) + 1
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.user.find_one({"id": payload["id"]})
+        user_num_receive = user_info["num"]
+        print("user_num_receive", user_num_receive)
 
-    user_num_receive = 1
+        bmi_list = list(db.user_bmi.find({}, {'_id': False}))
+        count = len(bmi_list) + 1
 
-    user_height_receive = request.form['user_height_give']
-    user_weight_receive = request.form['user_weight_give']
-    height_num = int(user_height_receive) / 100
-    user_bmi = int(user_weight_receive) / (height_num * height_num)
+        user_height_receive = request.form['user_height_give']
+        user_weight_receive = request.form['user_weight_give']
+        height_num = int(user_height_receive) / 100
+        user_bmi = int(user_weight_receive) / (height_num * height_num)
 
-    now = datetime.today()
+        now = datetime.today()
 
-    doc = {
-        'user_bmi_num': count,
-        'user_num': user_num_receive,
-        'user_height': user_height_receive,
-        'user_weight': user_weight_receive,
-        'user_bmi': round(user_bmi, 2),
-        'register_date': now
-    }
+        doc = {
+            'user_bmi_num': count,
+            'user_num': user_num_receive,
+            'user_height': user_height_receive,
+            'user_weight': user_weight_receive,
+            'user_bmi': round(user_bmi, 2),
+            'register_date': now
+        }
 
-    db.user_bmi.insert_one(doc)
-    return jsonify({'msg': '등록 완료!'})
+        db.user_bmi.insert_one(doc)
+        return jsonify({'msg': '등록 완료!'})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
 
 @app.route('/bmi_check')
 def user_bmi():
