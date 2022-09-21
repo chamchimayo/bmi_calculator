@@ -37,7 +37,7 @@ def bmi_register():
     height_num = int(user_height_receive) / 100
     user_bmi = int(user_weight_receive) / (height_num * height_num)
 
-    now = datetime.datetime.today()
+    now = datetime.today()
 
     doc = {
         'user_bmi_num': count,

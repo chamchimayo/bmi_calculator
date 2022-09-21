@@ -2,9 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>나의 BMI 추천 운동</title>
+    <title>BMI 입력</title>
+    <!--  깃헙 테스트중 /test -->
+    <!-- Bulma CSS 링크 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/mystyle.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function user_bmi_regsiter() {
+            let user_height = $('#user-height').val();
+            let user_weight = $('#user-weight').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/bmi_register",
+                data: {
+                    user_height_give: user_height,
+                    user_weight_give: user_weight
+                },
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.href = '/bmi_check?user_num=1';
+                }
+            })
+        }
+    </script>
 </head>
 <body>
-<h1> 메인 페이지 </h1>
+<section class="hero is-primary">
+    <div class="hero-body">
+        <p class="title">
+            BMI Calculator
+        </p>
+        <p class="subtitle">
+            bmi 계산하기
+        </p>
+    </div>
+</section>
+<div class="user-bmi-input">
+    <label for="user-height">키</label>
+    <input class="input is-primary" type="text" name="" id="user-height" placeholder="키를 입력 하세요.">
+    <label for="user-weight">몸무게</label>
+    <input class="input is-primary" type="text" name="" id="user-weight" placeholder="몸무게를 입력 하세요.">
+    <button class="button is-primary" onclick="user_bmi_regsiter()">bmi 확인하고 운동 추천 받기</button>
+</div>
+
 </body>
 </html>
