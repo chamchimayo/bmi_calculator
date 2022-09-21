@@ -122,6 +122,10 @@
     border: #00d1b2 solid 3px;
 }
 
+#bmi-register-btn {
+    margin-top: 20px;
+}
+
 .bmi-input {
     width: 375px;
     margin-right: 12px;
