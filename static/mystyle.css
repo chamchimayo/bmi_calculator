@@ -39,13 +39,13 @@
 }
 
 .box {
-    width: 480px;
+    width: 370px;
     height: 300px;
     position: absolute;
     left: 50%;
-    top: 60%;
-    margin-left: -240px;
-    margin-top: -240px;
+    top: 55%;
+    margin-left: -185px;
+    margin-top: -185px;
     padding: 2rem;
     border-radius: 1rem;
     border: #00d1b2 solid 3px;
@@ -63,8 +63,8 @@
 }
 
 .bts > button {
-    margin-top: 20px;
-    margin-left: 20px;
+    margin-top: 10px;
+    margin-left: 9px;
 }
 
 /* register.html */
