@@ -10,6 +10,30 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <style>
+        @font-face {
+            font-family: 'LeferiPoint-WhiteObliqueA';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+             font-family: 'S-CoreDream-3Light';
+             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+             font-weight: normal;
+             font-style: normal;
+        }
+
+        h1 {
+            font-family: 'LeferiPoint-WhiteObliqueA';
+        }
+
+        .subtitle {
+            font-family: 'S-CoreDream-3Light';
+        }
+    </style>
+
     <script>
         const user_num = {{ user_num }}
         const user = '{{ user }}'
@@ -97,12 +121,8 @@
 <body>
     <section class="hero is-primary">
         <div class="hero-body">
-            <p class="title">
-                BMI Calculator
-            </p>
-            <p class="subtitle">
-                bmi 확인하기
-            </p>
+            <h1 class="title" id="fick-title">F-ick</h1>
+            <p class="subtitle">내 BMI 저장 기록</p>
         </div>
     </section>
 
@@ -126,9 +146,9 @@
             </ul>
             <p class="menu-label">
             </p>
-            <ul class="menu-list">
-                <li><a>내 BMI 변화 그래프로 보기</a></li>
-            </ul>
+{#            <ul class="menu-list">#}
+{#                <li><a>내 BMI 변화 그래프로 보기</a></li>#}
+{#            </ul>#}
         </aside>
         <article id="user-bmi" class="user-bmi-box">
             <p><span class="point has-text-primary">내 키 :</span> {{ bmi_list[0].user_height }} cm</p>

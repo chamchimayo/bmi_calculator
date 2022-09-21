@@ -43,7 +43,7 @@
     height: 300px;
     position: absolute;
     left: 50%;
-    top: 55%;
+    top: 60%;
     margin-left: -240px;
     margin-top: -240px;
     padding: 2rem;
@@ -87,7 +87,7 @@
     top: 45%;
     background-color: white;
     border: #00d1b2 solid 3px;
-    border-radius: 5px;
+    border-radius: 1rem;
     width: 500px;
     margin: 50pt auto auto auto;
     padding: 20pt 20pt 20pt 20pt;
@@ -97,20 +97,39 @@
     align-items: center;
     margin-left: -240px;
     margin-top: -240px;
-    /*padding: 2rem;*/
-    /*border-radius: 1rem;*/
-    /*border: #00d1b2 solid 3px;*/
 }
 
 .input {
     border: #00cfb2 solid 1px;
 }
 
-/* userBmi.html */
-.user-bmi-input {
+/* index.html */
+.bmi-input-box {
     display: flex;
-    align-content: center;
     flex-direction: column;
+    justify-content: space-around;
+
+    background-color: white;
+    width: 480px;
+    height: 300px;
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    margin-left: -240px;
+    margin-top: -240px;
+    padding: 1.5rem 2rem 2rem 2rem;
+    border-radius: 1rem;
+    border: #00d1b2 solid 3px;
+}
+
+.bmi-input {
+    width: 375px;
+    margin-right: 12px;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
 }
 
 .grid {
@@ -119,7 +138,7 @@
 }
 
 .user-bmi-box {
-    padding: 1.25rem;
+    padding: 1rem;
 }
 
 .user-bmi-box > p {

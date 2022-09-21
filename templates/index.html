@@ -9,6 +9,30 @@
     <link rel="stylesheet" href="../static/mystyle.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        @font-face {
+            font-family: 'LeferiPoint-WhiteObliqueA';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+             font-family: 'S-CoreDream-3Light';
+             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+             font-weight: normal;
+             font-style: normal;
+        }
+
+        h1 {
+            font-family: 'LeferiPoint-WhiteObliqueA';
+        }
+
+        .subtitle {
+            font-family: 'S-CoreDream-3Light';
+        }
+    </style>
     <script>
         function user_bmi_regsiter(num) {
             let user_height = $('#user-height').val();
@@ -30,21 +54,29 @@
     </script>
 </head>
 <body>
-<section class="hero is-primary">
+<section class="hero is-success is-halfheight">
     <div class="hero-body">
-        <p class="title">
-            BMI Calculator
-        </p>
-        <p class="subtitle">
-            bmi 계산하기
-        </p>
+        <div class="login_title">
+            <h1 class="title" id="fick-title">F-ick</h1>
+            <p class="subtitle">내 bmi 계산하기</p>
+        </div>
     </div>
 </section>
-<div class="user-bmi-input">
-    <label for="user-height">키</label>
-    <input class="input is-primary" type="text" name="" id="user-height" placeholder="키를 입력 하세요.">
-    <label for="user-weight">몸무게</label>
-    <input class="input is-primary" type="text" name="" id="user-weight" placeholder="몸무게를 입력 하세요.">
+<div class="bmi-input-box">
+    <div class="user-bmi-input">
+        <label class="label" for="user-height">키</label>
+        <div class="input-box">
+            <input class="input is-primary bmi-input" type="text" name="" id="user-height" placeholder="키를 입력 하세요.">
+            <span>cm</span>
+        </div>
+    </div>
+    <div class="user-bmi-input">
+        <label class="label" for="user-weight">몸무게</label>
+        <div class="input-box">
+            <input class="input is-primary bmi-input" type="text" name="" id="user-weight" placeholder="몸무게를 입력 하세요.">
+            <span>kg</span>
+        </div>
+    </div>
     <button class="button is-primary" onclick="user_bmi_regsiter({{ user_num }})">bmi 확인하고 운동 추천 받기</button>
 </div>
 
