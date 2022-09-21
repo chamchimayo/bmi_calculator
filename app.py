@@ -70,12 +70,20 @@ def bmi_register():
 
 @app.route('/bmi_check')
 def user_bmi():
+    token_receive = request.cookies.get('mytoken')
     user_num = int(request.args.get("user_num"))
-    user = db.user.find_one({'num':user_num})
-    bmi_list = list(db.user_bmi.find({'user_num':user_num}, {'_id': False}).sort([("user_bmi_num", -1)]))
-    bmi_data = bmi_list[0]['user_bmi']
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        if user_num == payload["num"]:
+            user = db.user.find_one({'num': user_num})
+            bmi_list = list(db.user_bmi.find({'user_num': user_num}, {'_id': False}).sort([("user_bmi_num", -1)]))
+            bmi_data = bmi_list[0]['user_bmi']
+            return render_template('userBmi.html', user_num=user_num, user=user, bmi_list=bmi_list, bmi_data=bmi_data)
+        else:
+            return redirect(url_for("home", msg="유저 불일치"))
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home", msg="유저 불일치"))
 
-    return render_template('userBmi.html', user_num=user_num, user=user, bmi_list=bmi_list, bmi_data=bmi_data)
 
 @app.route("/api/bmi_check", methods=["GET"])
 def bmi_get():
@@ -139,10 +147,12 @@ def api_login():
 
     pw_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
     result = db.user.find_one({'id': username_receive, 'pw': pw_hash})
+    num = result['num']
     print(result)
 
     if result is not None:
         payload = {
+            'num': num,
             'id': username_receive,
             'exp': datetime.utcnow() + timedelta(seconds=60)
         }
