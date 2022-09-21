@@ -9,27 +9,46 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script>
+
+        function pw_error() {
+            alert('비밀번호가 일치하지 않습니다')
+            let input = document.getElementById('userpw2');
+            input.value = null;
+        }
+
         function register() {
-            $.ajax({
-                type: "POST",
-                url: "/api/register",
-                data: {
-                    name_give: $('#username').val(),
-                    id_give: $('#userid').val(),
-                    pw_give: $('#userpw').val(),
-                    mail_give: $('#usermail').val()
-                },
-                success: function (response) {
-                    if (response['result'] == 'success') {
-                        alert('회원가입이 완료되었습니다.')
-                        window.location.href = '/'
-                    } else {
-                        alert(response['msg'])
-                    }
+            if ($('#userpw').val() != $('#userpw2').val()) {
+                pw_error()
+                return
+            } else {
+                let emailchk = $('#usermail').val()
+                if (emailchk.includes("@"&&".")) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/register",
+                        data: {
+                            name_give: $('#username').val(),
+                            id_give: $('#userid').val(),
+                            pw_give: $('#userpw').val(),
+                            mail_give: $('#usermail').val()
+                        },
+                        success: function (response) {
+                            if (response['result'] == 'success') {
+                                alert('회원가입이 완료되었습니다.')
+                                window.location.href = '/'
+                            } else {
+                                alert(response['msg'])
+                            }
+                        }
+                    })
+                } else {
+                    alert('이메일 형식이 올바르지 않습니다')
+                    return
                 }
-            })
+            }
         }
     </script>
+
     <style>
         .field {
             width: 300px;
@@ -46,15 +65,17 @@
             justify-content: center;
             align-items: center;
         }
-        .title{
+
+        .title {
             font-size: 50pt;
-            margin:auto;
+            margin: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
-        .input{
+
+        .input {
             border: #00cfb2 solid 1px;
         }
 
@@ -65,11 +86,11 @@
 <body>
 
 <section class="hero is-primary">
-  <div class="hero-body">
-    <p class="title">
-      회원가입 :)
-    </p>
-  </div>
+    <div class="hero-body">
+        <p class="title">
+            회원가입 :)
+        </p>
+    </div>
 </section>
 
 <div class="wrap">
@@ -83,14 +104,21 @@
     <div class="field">
         <label class="label">ID</label>
         <div class="control">
-            <input id="userid" class="input" type="text" placeholder="ID">
+            <input id="userid" class="input" type="text" placeholder="아이디">
         </div>
     </div>
 
     <div class="field">
         <label class="label">Password</label>
         <div class="control">
-            <input id="userpw" class="input" type="text" placeholder="PW">
+            <input id="userpw" class="input" type="password" placeholder="패스워드">
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+            <input id="userpw2" class="input" type="password" placeholder="패스워드 확인">
         </div>
     </div>
 
@@ -100,8 +128,10 @@
             <input id="usermail" class="input" type="text" placeholder="hanghae99@gamil.net">
         </div>
     </div>
-    <div class = "join-btn">
-        <button onclick="register()" class="button is-primary"><span style="font-weight: bold; font-size: 15pt;"> 가입하기 </span> </button> </button>
+    <div class="join-btn">
+        <button onclick="register()" class="button is-primary"><span
+                style="font-weight: bold; font-size: 15pt;"> 가입하기 </span></button>
+        </button>
     </div>
 </div>
 
