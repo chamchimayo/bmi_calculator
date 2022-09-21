@@ -39,13 +39,13 @@
 }
 
 .box {
-    width: 370px;
+    width: 480px;
     height: 300px;
     position: absolute;
     left: 50%;
     top: 55%;
-    margin-left: -185px;
-    margin-top: -185px;
+    margin-left: -240px;
+    margin-top: -240px;
     padding: 2rem;
     border-radius: 1rem;
     border: #00d1b2 solid 3px;
