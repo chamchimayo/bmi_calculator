@@ -105,6 +105,11 @@
 
 /* index.html */
 .bmi-input-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    background-color: white;
     width: 480px;
     height: 300px;
     position: absolute;
@@ -112,25 +117,19 @@
     top: 60%;
     margin-left: -240px;
     margin-top: -240px;
-    padding: 2rem;
+    padding: 1.5rem 2rem 2rem 2rem;
     border-radius: 1rem;
     border: #00d1b2 solid 3px;
 }
 
 .bmi-input {
     width: 375px;
-    margin-right: 4px;
+    margin-right: 12px;
 }
 
 .input-box {
     display: flex;
     align-items: center;
-}
-
-.user-bmi-input {
-    display: flex;
-    align-content: center;
-    flex-direction: column;
 }
 
 .grid {
@@ -139,7 +138,7 @@
 }
 
 .user-bmi-box {
-    padding: 1.25rem;
+    padding: 1rem;
 }
 
 .user-bmi-box > p {

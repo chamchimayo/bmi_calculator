@@ -54,26 +54,30 @@
     </script>
 </head>
 <body>
-<section class="hero is-primary">
+<section class="hero is-success is-halfheight">
     <div class="hero-body">
-        <h1 class="title" id="fick-title">F-ick</h1>
-        <p class="subtitle">내 bmi 계산하기</p>
+        <div class="login_title">
+            <h1 class="title" id="fick-title">F-ick</h1>
+            <p class="subtitle">내 bmi 계산하기</p>
+        </div>
     </div>
 </section>
 <div class="bmi-input-box">
     <div class="user-bmi-input">
-        <label for="user-height">키</label>
+        <label class="label" for="user-height">키</label>
         <div class="input-box">
             <input class="input is-primary bmi-input" type="text" name="" id="user-height" placeholder="키를 입력 하세요.">
             <span>cm</span>
         </div>
-        <label for="user-weight">몸무게</label>
+    </div>
+    <div class="user-bmi-input">
+        <label class="label" for="user-weight">몸무게</label>
         <div class="input-box">
             <input class="input is-primary bmi-input" type="text" name="" id="user-weight" placeholder="몸무게를 입력 하세요.">
             <span>kg</span>
         </div>
-        <button class="button is-primary" onclick="user_bmi_regsiter({{ user_num }})">bmi 확인하고 운동 추천 받기</button>
     </div>
+    <button class="button is-primary" onclick="user_bmi_regsiter({{ user_num }})">bmi 확인하고 운동 추천 받기</button>
 </div>
 
 </body>
