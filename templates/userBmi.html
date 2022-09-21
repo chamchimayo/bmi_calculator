@@ -26,24 +26,52 @@
                 type: "GET",
                 url: `/api/bmi_check?user_bmi_num=${num}`,
                 success: function (response) {
-                    const user_height = response[0]
-                    const user_weight = response[1]
-                    const user_bmi_val = response[2]
-
-                    var body_condition = '';
-                    if(user_bmi_val <= 18.5) {
-                        body_condition = '저체중'
-                    } else if(user_bmi_val > 18.5 && user_bmi_val < 25 ) {
-                        body_condition = '표준' // 표준? 정상?
-                    } else {
-                        body_condition = '비만'
+                    const user_body = {
+                        user_height: response[0],
+                        user_weight: response[1],
+                        user_bmi_val: response[2],
                     }
 
-                    bmi_info = `<p>내 키 : ${user_height}</p>
-                                <p>내 몸무게 : ${user_weight}</p>
-                                <p>내 BMI 지수 : ${user_bmi_val}</p>
-                                <p>비만도 결과 : ${body_condition}</p>
-                                <p>추천 운동 : </p>`
+                    if(user_body["user_bmi_val"] <= 18.5) {
+                        user_body["body_condition"] = ['저체중', `근감소증 예방과 근육량 증가를 위한 저항성 운동에 집중해야 합니다.<br/>
+                                                            중량물을 이용한 웨이트트레이닝 혹은 탄력밴드나 체중을 이용한 저항운동도 좋습니다.<br/>
+                                                            싸이클 및 수영은 인체의 가장 큰 근육인 하체 근육을 집중 발달시키는 동시에, 심폐 체력 향상에도 매우 좋습니다.`]
+                        user_body["recommend"] = [['웨이트트레이닝', `../static/images/weight_training2.jpg`],
+                                                    ['싸이클', `../static/images/cycle2.jpg`],
+                                                    ['수영', `../static/images/swimming.jpg`]]
+                    } else if(user_body["user_bmi_val"] > 18.5 && user_body["user_bmi_val"] < 25 ) {
+                        user_body["body_condition"] = ['정상', `건강한 일반 성인을 위한 미국스포츠의학회(ACSM)의 FITT를 권장합니다.<br/>
+                                                            주 3-5일, 주당 150분 이상의 중~고강도 유산소운동,<br/>
+                                                            주 2-3일, 1RM의 50~80% 강도의 저항성 운동<br/>
+                                                            주 2-3일, 약간의 긴장감이 느껴지는 정도의 정적 스트레칭`]
+                        user_body["recommend"] = [['라켓 스포츠', `../static/images/racket.jpg`],
+                                                    ['웨이트트레이닝', `../static/images/weight_training2.jpg`],
+                                                    ['등산', `../static/images/climbing.jpg`]]
+                    } else {
+                        user_body["body_condition"] = ['비만', `비만한 사람의 경우 과도한 부하로 인한 근골격계 질환을 방지하며 <br/>
+                                                            고혈압, 고혈당, 고지혈증 등으로 인한 대사성질환 예방에 집중해야 합니다.<br/>
+                                                            미국스포츠의학회(ACSM)에 의하면 주 5일 이상의 유산소운동과, 주 2-3회의 저항성운동 및 스트레칭을 권장합니다.`]
+                        user_body["recommend"] = [['아쿠아로빅',`../static/images/aquarobic.jpg`],
+                                                    ['빠르게 걷기', `../static/images/walking.jpg`],
+                                                    ['싸이클', `../static/images/cycle2.jpg`]]
+                    }
+
+                    bmi_info = `<p>내 키 : ${user_body["user_height"]}</p>
+                                <p>내 몸무게 : ${user_body["user_weight"]}</p>
+                                <p>내 BMI 지수 : ${user_body["user_bmi_val"]}</p>
+                                <p>비만도 결과 : ${user_body["body_condition"][0]}</p>
+                                <p>${user_body["body_condition"][1]}</p>
+                                <div>
+                                    <p>추천 운동</p>
+                                    <div>
+                                        <img src="${user_body["recommend"][0][1]}" alt="">
+                                        <span>${user_body["recommend"][0][0]}</span>
+                                        <img src="${user_body["recommend"][1][1]}" alt="">
+                                        <span>${user_body["recommend"][1][0]}</span>
+                                        <img src="${user_body["recommend"][2][1]}" alt="">
+                                        <span>${user_body["recommend"][2][0]}</span>
+                                    </div>
+                                </div>`
 
                     $('#user-bmi').empty()
                     $('#user-bmi').append(bmi_info)
@@ -94,12 +122,56 @@
             <p>내 BMI 지수 : {{ bmi_data }}</p>
             {% if bmi_data <= 18.5 %}
                 <p>비만도 결과 : 저체중</p>
+                <p>근감소증 예방과 근육량 증가를 위한 저항성 운동에 집중해야 합니다.<br/>
+                중량물을 이용한 웨이트트레이닝 혹은 탄력밴드나 체중을 이용한 저항운동도 좋습니다.<br/>
+                싸이클 및 수영은 인체의 가장 큰 근육인 하체 근육을 집중 발달시키는 동시에, 심폐 체력 향상에도 매우 좋습니다.</p>
+                <div>
+                    <p>추천 운동</p>
+                    <div>
+                        <img src="../static/images/weight_training2.jpg" alt="">
+                        <span>웨이트 트레이닝</span>
+                        <img src="../static/images/cycle2.jpg" alt="">
+                        <span>싸이클</span>
+                        <img src="../static/images/swimming.jpg" alt="">
+                        <span>수영</span>
+                    </div>
+                </div>
             {% elif bmi_data > 18.5 and bmi_data <25 %}
-                <p>비만도 결과 : 표준</p>
+                <p>비만도 결과 : 정상</p>
+                <p>건강한 일반 성인을 위한 미국스포츠의학회(ACSM)의 FITT를 권장합니다.<br/>
+                주 3-5일, 주당 150분 이상의 중~고강도 유산소운동,<br/>
+                주 2-3일, 1RM의 50~80% 강도의 저항성 운동<br/>
+                주 2-3일, 약간의 긴장감이 느껴지는 정도의 정적 스트레칭</p>
+                <div>
+                    <p>추천 운동</p>
+                    <div>
+                        <img src="../static/images/racket.jpg" alt="">
+                        <span>라켓 스포츠</span>
+                        <span>(테니스/배드민턴)</span>
+                        <img src="../static/images/racket" alt="">
+                        <span>웨이트트레이닝</span>
+                        <img src="../static/images/climbing.jpg" alt="">
+                        <span>등산</span>
+                    </div>
+                </div>
             {% else %}
                 <p>비만도 결과 : 비만</p>
+                <p>비만한 사람의 경우 과도한 부하로 인한 근골격계 질환을 방지하며 <br/>
+                고혈압, 고혈당, 고지혈증 등으로 인한 대사성질환 예방에 집중해야 합니다.<br/>
+                미국스포츠의학회(ACSM)에 의하면 주 5일 이상의 유산소운동과, 주 2-3회의 저항성운동 및 스트레칭을 권장합니다.</p>
+                <div>
+                    <p>추천 운동</p>
+                    <div>
+                        <img src="../static/images/aquarobic.jpg" alt="">
+                        <span>아쿠아로빅</span>
+                        <img src="../static/images/walking.jpg" alt="">
+                        <span>빠르게 걷기</span>
+                        <img src="../static/images/cycle2.jpg" alt="">
+                        <span>싸이클</span>
+                    </div>
+                </div>
             {% endif %}
-            <p>추천 운동 : </p>
+
         </article>
     </div>
 </body>
