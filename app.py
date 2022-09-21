@@ -113,6 +113,16 @@ def api_register():
 
     return jsonify({'result': 'success'})
 
+# 1-2. 회원가입 아이디 중복체크: 회원가입 화면에서 '중복체크' 버튼 클릭 시
+@app.route('/sign_up/check_dup', methods=['POST'])
+def check_dup():
+    userid_receive = request.form['userid_give']
+    exists = bool(db.user.find_one({"id": userid_receive}))
+    return jsonify({'result': 'success', 'exists': exists})
+
+
+
+
 #1. 로그인: 로그인 화면에서 '로그인' 버튼 클릭 시
 @app.route('/api/login', methods=['POST'])
 def api_login():
