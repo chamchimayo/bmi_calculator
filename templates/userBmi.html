@@ -42,9 +42,8 @@
                     } else if(user_body["user_bmi_val"] > 18.5 && user_body["user_bmi_val"] < 25 ) {
                         user_body["body_condition"] = ['정상', `건강한 일반 성인을 위한 미국스포츠의학회(ACSM)의 FITT를 권장합니다.<br/>
                                                             주 3-5일, 주당 150분 이상의 중~고강도 유산소운동,<br/>
-                                                            주 2-3일, 1RM의 50~80% 강도의 저항성 운동<br/>
-                                                            주 2-3일, 약간의 긴장감이 느껴지는 정도의 정적 스트레칭`]
-                        user_body["recommend"] = [['라켓 스포츠', `../static/images/racket.jpg`],
+                                                            주 2-3일, 1RM의 50~80% 강도의 저항성 운동과 약간의 긴장감이 느껴지는 정도의 정적 스트레칭`]
+                        user_body["recommend"] = [[`라켓 스포츠<br/></span><span class="point">(테니스/배드민턴)`, `../static/images/racket.jpg`],
                                                     ['웨이트트레이닝', `../static/images/weight_training2.jpg`],
                                                     ['등산', `../static/images/climbing.jpg`]]
                     } else {
@@ -56,20 +55,35 @@
                                                     ['싸이클', `../static/images/cycle2.jpg`]]
                     }
 
-                    bmi_info = `<p>내 키 : ${user_body["user_height"]}</p>
-                                <p>내 몸무게 : ${user_body["user_weight"]}</p>
-                                <p>내 BMI 지수 : ${user_body["user_bmi_val"]}</p>
-                                <p>비만도 결과 : ${user_body["body_condition"][0]}</p>
-                                <p>${user_body["body_condition"][1]}</p>
+                    bmi_info = `<p><span class="point has-text-primary">내 키 :</span> ${user_body["user_height"]} cm</p>
+                                <p><span class="point has-text-primary">내 몸무게 :</span> ${user_body["user_weight"]} kg</p>
+                                <p><span class="point has-text-primary">내 BMI 지수 :</span> ${user_body["user_bmi_val"]}</p>
+                                <p><span class="point has-text-primary">비만도 결과 :</span> ${user_body["body_condition"][0]}</p>
+                                <div class="notification">
+                                    <p>${user_body["body_condition"][1]}</p>
+                                </div>
+
                                 <div>
-                                    <p>추천 운동</p>
-                                    <div>
-                                        <img src="${user_body["recommend"][0][1]}" alt="">
-                                        <span>${user_body["recommend"][0][0]}</span>
-                                        <img src="${user_body["recommend"][1][1]}" alt="">
-                                        <span>${user_body["recommend"][1][0]}</span>
-                                        <img src="${user_body["recommend"][2][1]}" alt="">
-                                        <span>${user_body["recommend"][2][0]}</span>
+                                    <span class="point has-text-primary">추천 운동</span>
+                                    <div class="exercise-box">
+                                        <div class="exercise">
+                                            <div class="img-circle">
+                                                <img class="exercise-img" src="${user_body["recommend"][0][1]}" alt="">
+                                            </div>
+                                            <span class="point">${user_body["recommend"][0][0]}</span>
+                                        </div>
+                                        <div class="exercise">
+                                            <div class="img-circle">
+                                                <img class="exercise-img" src="${user_body["recommend"][1][1]}" alt="">
+                                            </div>
+                                            <span class="point">${user_body["recommend"][1][0]}</span>
+                                        </div>
+                                        <div class="exercise">
+                                            <div class="img-circle">
+                                                <img class="exercise-img" src="${user_body["recommend"][2][1]}" alt="">
+                                            </div>
+                                            <span class="point">${user_body["recommend"][2][0]}</span>
+                                        </div>
                                     </div>
                                 </div>`
 
@@ -93,13 +107,13 @@
     </section>
 
     <div class="grid">
-        <aside class="menu">
+        <aside class="menu menu-bar">
 
             <!--        <p class="menu-label">-->
             <!--        </p>-->
             <ul class="menu-list">
                 <li>
-                    <a class="is-active" id="user-bmi-data">{{ user.name }}님, BMI 저장 기록</a>
+                    <a id="user-bmi-data">{{ user.name }}님, BMI 저장 기록</a>
                     <ul id="slide-toggle-li">
                         {% for bmi in bmi_list %}
                             <li>
@@ -116,58 +130,102 @@
                 <li><a>내 BMI 변화 그래프로 보기</a></li>
             </ul>
         </aside>
-        <article id="user-bmi">
-            <p>내 키 : {{ bmi_list[0].user_height }}</p>
-            <p>내 몸무게 : {{ bmi_list[0].user_weight }}</p>
-            <p>내 BMI 지수 : {{ bmi_data }}</p>
+        <article id="user-bmi" class="user-bmi-box">
+            <p><span class="point has-text-primary">내 키 :</span> {{ bmi_list[0].user_height }} cm</p>
+            <p><span class="point has-text-primary">내 몸무게 :</span> {{ bmi_list[0].user_weight }} kg</p>
+            <p><span class="point has-text-primary">내 BMI 지수 :</span> {{ bmi_data }}</p>
             {% if bmi_data <= 18.5 %}
-                <p>비만도 결과 : 저체중</p>
-                <p>근감소증 예방과 근육량 증가를 위한 저항성 운동에 집중해야 합니다.<br/>
-                중량물을 이용한 웨이트트레이닝 혹은 탄력밴드나 체중을 이용한 저항운동도 좋습니다.<br/>
-                싸이클 및 수영은 인체의 가장 큰 근육인 하체 근육을 집중 발달시키는 동시에, 심폐 체력 향상에도 매우 좋습니다.</p>
+                <p><span class="point has-text-primary">비만도 결과 :</span> 저체중</p>
+                <div class="notification">
+                    <p>근감소증 예방과 근육량 증가를 위한 저항성 운동에 집중해야 합니다.<br/>
+                        중량물을 이용한 웨이트트레이닝 혹은 탄력밴드나 체중을 이용한 저항운동도 좋습니다.<br/>
+                        싸이클 및 수영은 인체의 가장 큰 근육인 하체 근육을 집중 발달시키는 동시에, 심폐 체력 향상에도 매우 좋습니다.</p>
+                </div>
+
                 <div>
-                    <p>추천 운동</p>
-                    <div>
-                        <img src="../static/images/weight_training2.jpg" alt="">
-                        <span>웨이트 트레이닝</span>
-                        <img src="../static/images/cycle2.jpg" alt="">
-                        <span>싸이클</span>
-                        <img src="../static/images/swimming.jpg" alt="">
-                        <span>수영</span>
+                    <span class="point has-text-primary">추천 운동</span>
+                    <div class="exercise-box">
+                        <div class="exercise">
+                            <div class="img-circle">
+                                <img class="exercise-img" src="../static/images/weight_training2.jpg" alt="">
+                            </div>
+                            <span class="point">웨이트 트레이닝</span>
+                        </div>
+                        <div class="exercise">
+                            <div class="img-circle">
+                                <img class="exercise-img" src="../static/images/cycle2.jpg" alt="">
+                            </div>
+                            <span class="point">싸이클</span>
+                        </div>
+                        <div class="exercise">
+                            <div class="img-circle">
+                                <img class="exercise-img" src="../static/images/swimming.jpg" alt="">
+                            </div>
+                            <span class="point">수영</span>
+                        </div>
                     </div>
                 </div>
             {% elif bmi_data > 18.5 and bmi_data <25 %}
-                <p>비만도 결과 : 정상</p>
-                <p>건강한 일반 성인을 위한 미국스포츠의학회(ACSM)의 FITT를 권장합니다.<br/>
-                주 3-5일, 주당 150분 이상의 중~고강도 유산소운동,<br/>
-                주 2-3일, 1RM의 50~80% 강도의 저항성 운동<br/>
-                주 2-3일, 약간의 긴장감이 느껴지는 정도의 정적 스트레칭</p>
+                <p><span class="point has-text-primary">비만도 결과 :</span> 정상</p>
+                <div class="notification">
+                    <p>건강한 일반 성인을 위한 미국스포츠의학회(ACSM)의 FITT를 권장합니다.<br/>
+                        주 3-5일, 주당 150분 이상의 중~고강도 유산소운동,<br/>
+                        주 2-3일, 1RM의 50~80% 강도의 저항성 운동과 약간의 긴장감이 느껴지는 정도의 정적 스트레칭</p>
+                </div>
+
                 <div>
-                    <p>추천 운동</p>
-                    <div>
-                        <img src="../static/images/racket.jpg" alt="">
-                        <span>라켓 스포츠</span>
-                        <span>(테니스/배드민턴)</span>
-                        <img src="../static/images/racket" alt="">
-                        <span>웨이트트레이닝</span>
-                        <img src="../static/images/climbing.jpg" alt="">
-                        <span>등산</span>
+                    <span class="point has-text-primary">추천 운동</span>
+                    <div class="exercise-box">
+                        <div class="exercise">
+                            <div class="img-circle">
+                                <img class="exercise-img" src="../static/images/racket.jpg" alt="">
+                            </div>
+                            <span class="point">라켓 스포츠<br/></span>
+                            <span class="point">(테니스/배드민턴)</span>
+                        </div>
+                        <div class="exercise">
+                            <div class="img-circle">
+                                <img class="exercise-img" src="../static/images/weight_training2.jpg" alt="">
+                            </div>
+                            <span class="point">웨이트 트레이닝</span>
+                        </div>
+                        <div class="exercise">
+                            <div class="img-circle">
+                                <img class="exercise-img" src="../static/images/climbing.jpg" alt="">
+                            </div>
+                            <span class="point">등산</span>
+                        </div>
                     </div>
                 </div>
             {% else %}
-                <p>비만도 결과 : 비만</p>
-                <p>비만한 사람의 경우 과도한 부하로 인한 근골격계 질환을 방지하며 <br/>
-                고혈압, 고혈당, 고지혈증 등으로 인한 대사성질환 예방에 집중해야 합니다.<br/>
-                미국스포츠의학회(ACSM)에 의하면 주 5일 이상의 유산소운동과, 주 2-3회의 저항성운동 및 스트레칭을 권장합니다.</p>
+                <p><span class="point has-text-primary">비만도 결과 :</span> 비만</p>
+                <div class="notification">
+                    <p>비만한 사람의 경우 과도한 부하로 인한 근골격계 질환을 방지하며 <br/>
+                        고혈압, 고혈당, 고지혈증 등으로 인한 대사성질환 예방에 집중해야 합니다.<br/>
+                        미국스포츠의학회(ACSM)에 의하면 주 5일 이상의 유산소운동과, 주 2-3회의 저항성운동 및 스트레칭을 권장합니다.</p>
+                </div>
+
                 <div>
-                    <p>추천 운동</p>
-                    <div>
-                        <img src="../static/images/aquarobic.jpg" alt="">
-                        <span>아쿠아로빅</span>
-                        <img src="../static/images/walking.jpg" alt="">
-                        <span>빠르게 걷기</span>
-                        <img src="../static/images/cycle2.jpg" alt="">
-                        <span>싸이클</span>
+                    <span class="point has-text-primary">추천 운동</span>
+                    <div class="exercise-box">
+                        <div class="exercise">
+                            <div class="img-circle">
+                                <img class="exercise-img" src="../static/images/aquarobic.jpg" alt="">
+                            </div>
+                            <span class="point">아쿠아로빅<br/></span>
+                        </div>
+                        <div class="exercise">
+                            <div class="img-circle">
+                                <img class="exercise-img" src="../static/images/walking.jpg" alt="">
+                            </div>
+                            <span class="point">빠르게 걷기</span>
+                        </div>
+                        <div class="exercise">
+                            <div class="img-circle">
+                                <img class="exercise-img" src="../static/images/cycle2.jpg" alt="">
+                            </div>
+                            <span class="point">싸이클</span>
+                        </div>
                     </div>
                 </div>
             {% endif %}

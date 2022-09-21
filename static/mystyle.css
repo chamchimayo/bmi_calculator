@@ -1,3 +1,4 @@
+/* userBmi.html */
 .user-bmi-input {
     display: flex;
     align-content: center;
@@ -7,4 +8,46 @@
 .grid {
     display: grid;
     grid-template-columns: 300px 1fr;
+}
+
+.user-bmi-box {
+    padding: 1.25rem;
+}
+
+.user-bmi-box > p {
+    margin-bottom: 0.3rem;
+}
+
+.menu-bar {
+    padding: 1rem;
+}
+
+.point {
+    font-weight: bold;
+}
+
+.exercise-box {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.exercise {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*margin: 1rem;*/
+}
+
+.img-circle {
+    width: 165px;
+    height: 165px;
+    border-radius: 70%;
+    overflow: hidden;
+    margin: 1rem;
+}
+
+.exercise-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
