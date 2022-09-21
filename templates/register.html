@@ -5,9 +5,36 @@
     <title>Title</title>
     <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/mystyle.css">
+
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <style>
+        @font-face {
+            font-family: 'LeferiPoint-WhiteObliqueA';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+             font-family: 'S-CoreDream-3Light';
+             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+             font-weight: normal;
+             font-style: normal;
+        }
+
+        h1 {
+            font-family: 'LeferiPoint-WhiteObliqueA';
+        }
+
+        .subtitle {
+            font-family: 'S-CoreDream-3Light';
+        }
+    </style>
+
     <script>
 
         function pw_error() {
@@ -97,57 +124,13 @@
         }
 
     </script>
-
-    <style>
-        .success {
-            color: green;
-        }
-
-        .caution{
-            color: red;
-        }
-
-
-        .field {
-            width: 300px;
-        }
-
-        .wrap {
-            border: cadetblue solid 3px;
-            border-radius: 5px;
-            width: 500px;
-            margin: 50pt auto auto auto;
-            padding: 20pt 20pt 20pt 20pt;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .title {
-            font-size: 50pt;
-            margin: auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .input {
-            border: #00cfb2 solid 1px;
-        }
-
-
-    </style>
-
 </head>
 <body>
 
 <section class="hero is-primary">
     <div class="hero-body">
-        <p class="title">
-            회원가입 :)
-        </p>
+        <h1 class="title" id="fick-title">F-ick</h1>
+        <p class="subtitle">회원 가입하기 :)</p>
     </div>
 </section>
 <div class="wrap">
