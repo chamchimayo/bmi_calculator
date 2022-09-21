@@ -3,7 +3,7 @@
 <head>
 
     <!-- Webpage Title -->
-    <title>Bmi Log In</title>
+    <title>F-ick | 건강한 체중 찾기</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,6 +11,8 @@
 
     <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/mystyle.css">
+
     <!-- Font Awesome CSS -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 
@@ -18,53 +20,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <style>
-
-        .hero {
-            display: block;
+        @font-face {
+            font-family: 'LeferiPoint-WhiteObliqueA';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
         }
 
-        .hero.is-halfheight {
-            min-height: 48vh;
+        @font-face {
+             font-family: 'S-CoreDream-3Light';
+             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+             font-weight: normal;
+             font-style: normal;
         }
-        .hero.is-success {
-            background-color: #00d1b2;
+
+        h1 {
+            font-family: 'LeferiPoint-WhiteObliqueA';
         }
-        .hero-body {
-            padding-left: 3rem;
-        }
-        .title {
-            font-size: 3rem;
-        }
+
         .subtitle {
-            font-size: 1.7rem;
-        }
-        .box {
-            width: 480px;
-            height: 300px;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            margin-left: -240px;
-            margin-top: -240px;
-            padding: 2rem;
-            border-radius: 1rem;
-            border: cadetblue solid 3px;
-        }
-
-        .input {
-            border: #00cfb2 solid 1px;
-        }
-
-        .bts {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .bts > button {
-            margin-top: 20px;
-            margin-left: 20px;
+            font-family: 'S-CoreDream-3Light';
         }
     </style>
     <script>
@@ -122,7 +97,7 @@
 <section class="hero is-success is-halfheight">
     <div class="hero-body">
         <div class="login_title">
-            <h1 class="fick-title">F-ick</h1>
+            <h1 class="title" id="fick-title">F-ick</h1>
             <p class="subtitle">건강한 체중 찾기</p>
         </div>
     </div>
