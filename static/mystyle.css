@@ -5,8 +5,96 @@
     font-style: normal;
 }
 
-.fick-title {
-    font-family: 'LeferiPoint-WhiteObliqueA';
+#fick-title {
+    color: rgba(249, 104, 84);
+}
+
+/* login.html*/
+.hero {
+    display: block;
+}
+
+.hero.is-halfheight {
+    min-height: 48vh;
+}
+
+.hero.is-success {
+    background-color: #00d1b2;
+}
+
+.hero-body {
+    padding-left: 3rem;
+}
+
+.login_title {
+    margin: 30px;
+}
+
+.title {
+    font-size: 3rem;
+}
+
+.subtitle {
+    font-size: 1.7rem;
+}
+
+.box {
+    width: 480px;
+    height: 300px;
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    margin-left: -240px;
+    margin-top: -240px;
+    padding: 2rem;
+    border-radius: 1rem;
+    border: #00d1b2 solid 3px;
+}
+
+.input {
+    border: #00cfb2 solid 1px;
+}
+
+.bts {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.bts > button {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+/* register.html */
+.field {
+    width: 300px;
+}
+
+.wrap {
+    border: cadetblue solid 3px;
+    border-radius: 5px;
+    width: 500px;
+    margin: 50pt auto auto auto;
+    padding: 20pt 20pt 20pt 20pt;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 50pt;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.input {
+    border: #00cfb2 solid 1px;
 }
 
 /* userBmi.html */
