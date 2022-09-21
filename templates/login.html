@@ -106,7 +106,7 @@
                     if (response['result'] == 'success') {
                         $.cookie('mytoken', response['token'], {path: '/'});
                         alert(response['name'] + "님 로그인을 환영합니다.")
-                        window.location.replace("/bmi_register")
+                        window.location.replace("/")
                     } else {
                         alert(response['msg'])
                         window.location.reload()
