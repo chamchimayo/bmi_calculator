@@ -32,7 +32,7 @@
 <img src="https://user-images.githubusercontent.com/98001726/191640842-cacad49c-4b15-43a3-84e6-2a0cfe976b08.png" width="45%" style="margin-left: 1rem;">
 </p>
 
-- 시계 방향 순서대로<br/>
+- 왼쪽에서 오른쪽으로<br/>
     (1) 로그인 화면 <br/>
     (2) 회원 가입 화면<br/>
     (3) index.html - 사용자 키, 체중 입력 화면<br/>
