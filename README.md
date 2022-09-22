@@ -40,7 +40,7 @@
 <br/><br/>
 ## 6) DB 구성
 (1) user(회원 저장)
-| <!-- --> | <!-- --> | <!-- --> |
+|  |  |  |
 | - | - | - |
 | num | int | pk(기본키) |
 | name | String | 유저이름 |
@@ -49,7 +49,7 @@
 | mail | String | 유저 이메일 | 
 
 (2) user_bmi(사용자 bmi 로그 저장)
-|  | |  |
+|  |  |  |
 | - | - | - |
 | user_bmi_num | int | pk(기본키) |
 | user_num | int | fk(외래키, user의 num을 참조) |
